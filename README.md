@@ -1,2 +1,2 @@
-# Panda_excercises
-Leraning curve
+# Pandas_excercises
+Learning curve
