@@ -41,11 +41,8 @@ def place_marker(board, marker, position):
     board[int(position)] = marker
 
 def win_check(board, mark):
-    if [mark,mark,mark] == (board[1:4] or board[4:7] or board[7:10]):
-        return True
-    if [mark,mark,mark] == (board[1:8:3] or board[2:6,3] or board[3:10:3]):
-        return True
-    if [mark,mark,mark] == (board[1:10:4] or board[3:8:2]):
+    winner_list = [board[1:4],board[4:7],board[7:10],board[1:8:3],board[2:10:3],board[3:10:3],board[1:10:4],board[3:8:2]]
+    if [mark,mark,mark] in winner_list:
         return True
     else:
         return False
