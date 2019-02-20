@@ -1,3 +1,4 @@
+from IPython.display import clear_output
 def display_board(board):
     matrix = {
         'one': board[1],
@@ -12,6 +13,7 @@ def display_board(board):
     }
 
 
+    clear_output()
     print("""
               {} | {} | {}
              --- --- ---
@@ -56,25 +58,24 @@ def choose_first():
 
 def space_check(board, position):
     #print(board[position])
-    return (board[position] != "O" and board[position] != "X")
+    if board[position] != 'O' and board[position] != 'X':
+        return True
 
 def full_board_check(board):
-    return " " not in board
+    if '' in list(board[1:]) or ' ' in list(board[1:]):
+        return False
+    else:
+        return True
 
 
 def player_choice(board):
-    my_repeat = True
-    while my_repeat:
-        what_next = int(input('What is your next move [1-9]? '))
-        if what_next not in list(range(1,10)):
-            my_repeat = True
-            pass
-        elif space_check(board,what_next):
-                my_repeat = False
-                return int(what_next)
-        elif full_board_check:
+    position = 0
+    while position not in list(range(1,10)) or not space_check(board,position):
+        posiiton = int(input('What is your next move [1-9]? '))
+        if full_board_check:
+            print("nobody wins - but board full check failed")
             break
-        my_repeat = True
+    return int(position)
 
 
 def replay():
