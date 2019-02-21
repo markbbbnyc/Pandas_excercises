@@ -67,7 +67,7 @@ def space_check(board, position):
         return False
 
 def full_board_check(board):
-    if ' ' in board[1:] or '' in board[1:]:
+    if ' ' in list(board[1:]):
         return False
     else:
         return True
