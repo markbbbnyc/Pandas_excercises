@@ -1,4 +1,6 @@
 from IPython.display import clear_output
+import os
+
 def display_board(board):
     matrix = {
         'one': board[1],
@@ -25,6 +27,7 @@ def display_board(board):
                          matrix['six'],matrix['seven'],matrix['eight'],matrix['nine']))
 
 def player_input():
+    os.system("clear")
     ready1 = False
     ready2 = False
     while ready1 == False:
@@ -60,28 +63,25 @@ def space_check(board, position):
     #print(board[position])
     if board[position] != 'O' and board[position] != 'X':
         return True
+    else:
+        return False
 
 def full_board_check(board):
-    if '' in list(board[1:]) or ' ' in list(board[1:]):
+    if ' ' in board[1:] or '' in board[1:]:
         return False
     else:
         return True
 
-
 def player_choice(board):
     position = 0
     while position not in list(range(1,10)) or not space_check(board,position):
-        posiiton = int(input('What is your next move [1-9]? '))
-        if full_board_check:
-            print("nobody wins - but board full check failed")
-            break
+        position = int(input('What is your next move [1-9]? '))
+    if full_board_check(play_board):
+        print("nobody wins - but board full check failed")
     return int(position)
-
 
 def replay():
     return 'y' == input('You want to go again [y/n]? ')
-
-
 
 active_player = choose_first()
 marker_player1 = player_input()
@@ -92,6 +92,7 @@ else:
 
 while True:
 
+    os.system("clear")
     print('Welcome to Tic Tac Toe! See the empty Board, the world is your Oyster')
     play_board = ['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
     display_board(play_board)
@@ -100,22 +101,27 @@ while True:
 
         print('Player 1 your turn')
         move1 = player_choice(play_board)
-        place_marker(play_board,marker_player1,move1)
+        if space_check(play_board,move1):
+            place_marker(play_board,marker_player1,move1)
+        else:
+            print('NNNNOOOOO Dice - that space is already taken')
+        os.system("clear")
         display_board(play_board)
         if win_check(play_board,marker_player1):
             print('You Win Player 1')
-            display_board(play_board)
             break
 
         print('Player 2 your turn')
         move2 = player_choice(play_board)
-        place_marker(play_board,marker_player2,move2)
+        if space_check(play_board,move2):
+            place_marker(play_board,marker_player2,move2)
+        else:
+            print('NNNNOOOOO Dice - that space is already taken')
+        os.system("clear")
         display_board(play_board)
         if win_check(play_board,marker_player2):
             print('You Win Player 2')
-            display_board(play_board)
             break
-
         if full_board_check(play_board):
             print('Neither of you won - you are either equally smart or dumb')
             break
